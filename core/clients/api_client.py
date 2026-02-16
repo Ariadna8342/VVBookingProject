@@ -14,6 +14,7 @@ class ApiClient:
             raise ValueError(f"Unsupported environment value {environment_str}")
 
         self.base_url = self.get_base_url(environment)
+        self.session = requests.Session()
         self.headers = {
             "Content-Type": "application/json"
         }
