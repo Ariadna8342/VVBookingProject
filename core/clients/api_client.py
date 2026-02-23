@@ -74,7 +74,6 @@ class ApiClient:
 
         with allure.step("Проверка статус кода"):
             assert response.status_code == 200, f'Ожидаемый статус 200, но получен {response.status_code}'
-
         return response.json()
 
 
