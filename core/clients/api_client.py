@@ -66,35 +66,15 @@ class ApiClient:
         with allure.step("Updating header with authorization"):
             self.session.headers.update({'Authorization': f'Bearer {token}'})
 
-    def get_booking_by_id(self, firstname, lastname, checkin, checkout):
-        with allure.step("Проверка бронирования по Id"):
-            url= f'{self.base_url}{Endpoints.BOOKING_ENDPOINT}'
-            parameters = {}
-            if firstname:
-                parameters['firstname'] = firstname
-            if lastname:
-                parameters['lastname'] = lastname
-            if checkin:
-                parameters['checkin'] = checkin
-            if checkout:
-                parameters['checkout'] = checkout
-
-            response = self.session.get(url, params=parameters)
+    def get_booking_by_id(self, booking_id):
+        with allure.step(f"Получение бронирования по {booking_id}"):
+            url= f'{self.base_url}{Endpoints.BOOKING_ENDPOINT}/{booking_id}'
+            response = self.session.get(url)
             response.raise_for_status()
 
         with allure.step("Проверка статус кода"):
             assert response.status_code == 200, f'Ожидаемый статус 200, но получен {response.status_code}'
 
-        with allure.step("Проверка структуры ответа"):
-            bookings = response.json() #Преобразование ответа в json
-            assert isinstance(bookings, list), f'Ожидается список, но получен {type(bookings)}'
-            if bookings:
-                for booking in bookings:
-                    assert isinstance(booking, dict), f'Ожидается словарь, но получен {type(booking)}'
-            assert isinstance(booking['bookingId'], int), 'bookingId должно быть числом'
-
-        with allure.step(f'Проверка количества полученных bookingId, получено {len(bookings)}'):
-            return bookings
 
 
 
