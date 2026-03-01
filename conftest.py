@@ -22,7 +22,7 @@ def booking_dates():
 
 @pytest.fixture()
 def generate_random_booking_data(booking_dates):
-    faker = Faker
+    faker = Faker()
     firstname = faker.first_name()
     lastname = faker.last_name()
     totalprice = faker.random_number(digits=3)
