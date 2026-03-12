@@ -21,8 +21,7 @@ class TestCreateBooking:
             assert "bookingid" in response_json, "В ответе отсутствует ID бронирования"
             assert isinstance(response_json["bookingid"], int), "ID бронирования должен быть числом"
 
-        print(f"Создана бронь с ID: {response_json['bookingid']}")
-        print(f"Полный ответ: {response_json}") # вывела для себя, чтобы проверить верно ли создается бронь
+
 
 
 
