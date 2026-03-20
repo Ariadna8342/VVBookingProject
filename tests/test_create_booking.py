@@ -3,6 +3,7 @@ import pytest
 import requests
 from pydantic import ValidationError
 from core.models.booking import BookingResponse
+from requests.exceptions import HTTPError
 
 @allure.feature("Booking")
 class TestCreateBooking:
@@ -98,7 +99,7 @@ def test_create_booking_missing_firstname(api_client):
         "additionalneeds": "Dinner"
     }
 
-    with pytest.raises(Exception) as exception_info:
+    with pytest.raises(HTTPError) as exception_info:
         api_client.create_booking(booking_data)
 
         # Проверяем что это 500 ошибка
